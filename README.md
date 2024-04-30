@@ -1,4 +1,4 @@
-# MutAIVers
+# MutAIverse
 Facilitating the identification of DNA adducts from untargeted metabolomics mass spectrometry data along with predictive capabilities to determine potential source genotoxins responsible for the novel identified or pre-existing adduct formation.
 
 
@@ -15,14 +15,14 @@ The single strong dependency for this resource is **[RDKit](https://www.rdkit.or
 
 
 ## Adduct Mapper module
-MutAIVers provides two approaches for mapping query MS spectra against *in silico* MS MS spectral library of Experimentally validated adducts or Synthetic DNA adducts of MutAIVers.
+MutAIverse provides two approaches for mapping query MS spectra against *in silico* MS MS spectral library of Experimentally validated adducts or Synthetic DNA adducts of MutAIverse.
 
 
 ### Brute force Approach 
 Cosine Similarity-based mapping 
 
 ```Python
-from MutAIVers import Mapper
+from MutAIverse import Mapper
 Mapper.map('bonafide_adducts',sample_file_path='/path-to-mzML-file',MS_level=1,plot=True)
 
 ```
@@ -30,12 +30,12 @@ Mapper.map('bonafide_adducts',sample_file_path='/path-to-mzML-file',MS_level=1,p
 Additional arguments 
 
     Parameters:
-    - library (str): bonafide_adducts/mutaiverse
+    - library (str): bonafide_adducts/MutAIversee
     - sample_file_path (str): Path to the mzML file containing mass spectrometry data.
     - ms level (int): 1 (MS spectrum) or 2 (MS/MS spectrum)
     - plot (bool; default True): for visualizations
     return
-    - Result CSV file with suffix _mutAIverse_results.csv or _bonafide_adducts_results.csv
+    - Result CSV file with suffix _MutAIversee_results.csv or _bonafide_adducts_results.csv
 
 
 
@@ -45,7 +45,7 @@ Approximate Nearest Neighbour-based mapping, which executes through 2 steps
 2. Mapping using the HNSW index of the spectral embeddings
 
 ```python
-from MutAIVers import Mapper
+from MutAIverse import Mapper
 Mapper.fast_map(mzml_file_path)
 
 ```
@@ -65,14 +65,14 @@ Additional arguments
 
 
 ## Adduct Linker module
-MutAIVers is also capable of re-tracing a DNA adduct to its possible source Genotoxin.
+MutAIverse is also capable of re-tracing a DNA adduct to its possible source Genotoxin.
 
 
 ### Fragment-based linking 
 biotransformation backtracking based on abnormalities spliced from the base nucleotides
 
 ```python
-from MutAIVers import Linker
+from MutAIverse import Linker
 query_smiles = 'OC[C@H]1O[C@H](CC1O)n1c[n+](c2c1nc(N)[nH]c2=O)C1OC2C(C1O)c1c(O2)cc(c2c1oc(=O)c1c2CCC1=O)OC' 
 Linker.backtrace(Adduct = query_smiles)
 
@@ -93,7 +93,7 @@ Additional arguments
 This module also has a sub-function dedicated only to visualize backtrace() output with a user-supplied probability threshold.
 ```python
 import pandas as pd
-from MutAIVers import Linker 
+from MutAIverse import Linker 
 df = pd.read_csv('output DataFrame of Linker.backtrace() function')
 plot_trace(file=df)
 ```
