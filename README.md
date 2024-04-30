@@ -57,7 +57,7 @@ Additional arguments
     - level (int; default 2): 1 (MS spectrum) or 2 (MS/MS spectrum)
     - k (int; default 1): Number of nearest neighbors to search for.
     - ef_query (int; default 300): Parameter controlling the number of elements to visit during a query.
-    - Energy (int; default 0): 
+    - Energy (int; default 0): Collision energy
     
     Returns:
     - pandas.DataFrame: DataFrame containing search results with columns ['Query_Index', 'Nearest_Neighbor_Index', 'Cosine Similarity', 'SMILES', 'COMPID', 'Structures'].
