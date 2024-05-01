@@ -17,6 +17,13 @@ The single strong dependency for this resource is **[RDKit](https://www.rdkit.or
 ## Adduct Mapper module
 MutAIverse provides two approaches for mapping query MS spectra against *in silico* MS MS spectral library of Experimentally validated adducts or Synthetic DNA adducts of MutAIverse.
 
+#### MutAIverse Library setup
+This is a one-time task that must be completed to use the Mapper module after installing the package for the first time
+```Python
+from MutAIverse import Mapper
+Mapper.load_library()
+```
+The function fetches the library data to be used by the Mapper module in future 
 
 ### Brute force Approach 
 Cosine Similarity-based mapping 
