@@ -103,7 +103,7 @@ This module also has a sub-function dedicated only to visualize backtrace() outp
 ```python
 import pandas as pd
 from MutAIverse import Linker 
-plot_trace(file='/Path-to-Output_file.csv')
+Linker.plot_trace(file='/Path-to-Output_file.csv')
 ```
 
 Additional arguments 
