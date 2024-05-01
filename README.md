@@ -23,7 +23,7 @@ This is a one-time task that must be completed to use the Mapper module after in
 from MutAIverse import Mapper
 Mapper.load_library()
 ```
-The function fetches the library data to be used by the Mapper module in future 
+The function fetches the library data (1.5G) to be used by the Mapper module in the future. 
 
 ### Brute force Approach 
 Cosine Similarity-based mapping 
@@ -91,6 +91,8 @@ Additional arguments
     - Adduct (str): Path to the mzML file containing mass spectrometry data.
     - knn (int; default 20): Number of nearest neighbors to narrow down the search space. 
     - tophit (int; default 5): Minimum number of Genotoxins to be linked.
+    - plot (bool; default False): Traced SMILES 2D structures in rows
+    - cutoff (int; default 80): Link Probability(%) cutoff
     
     Returns:
     - pandas.DataFrame: DataFrame containing search results with columns ['Query', 'Fragment', 'Metabolites', 'N-Transformation', 'Genotoxin', 'Probability'].
@@ -101,16 +103,15 @@ This module also has a sub-function dedicated only to visualize backtrace() outp
 ```python
 import pandas as pd
 from MutAIverse import Linker 
-df = pd.read_csv('output DataFrame of Linker.backtrace() function')
-plot_trace(file=df)
+plot_trace(file='/Path-to-Output_file.csv')
 ```
 
 Additional arguments 
 
     Parameters:
-    - file (pandas.DataFrame): output DataFrame of Linker.backtrace() function
+    - file (str): Output CSV file (with path) of Linker.backtrace() function
     - cutoff (int; default 80): Minimum probability threshold 
     Returns:
-    - visualizations(Traced smiles 2D structures in rows)
+    - visualizations(Traced SMILES 2D structures in rows)
   
 
