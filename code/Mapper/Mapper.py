@@ -210,18 +210,8 @@ def map(library,mzml_file_path,MS_level,plot):
             plt.xlim(0,1)
             plt.savefig(os.path.join(f'{mzml_file}_{score_column}_histogram.png'))
             plt.close()
-        #
-        #model_file_path = '/home/shivaji/trail/src/references_word2vec.model'
-        #spec_emb= generate_word_vectors_from_sample(mzml_file_path,model_file_path,MS_level).toarray()
-        #spec=pd.DataFrame(spec_emb)
-        #plot_tsne(spec,df_comb['Score_E0'].astype(float),library,10)
-        #plot_tsne(spec,df_comb['Score_E1'].astype(float),library,20)
-        #plot_tsne(spec,df_comb['Score_E2'].astype(float),library,40)
     
-    
-    
-    
-    
+        
     else:
         PandasTools.RenderImagesInAllDataFrames(images=True)
         df_comb['STRUCTURE_EO']=df_comb.apply(fast_high, axis=1,ref_id_column='E0_ref_id', smile_column='E0_ref_smile')
