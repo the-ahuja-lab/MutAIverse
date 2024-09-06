@@ -1,5 +1,6 @@
 # MutAIverse
-Facilitating the identification of DNA adducts from untargeted metabolomics mass spectrometry data along with predictive capabilities to determine potential source genotoxins responsible for the novel identified or pre-existing adduct formation.
+The MutAIverse package streamlines adductomics research by enabling the screening of untargeted metabolomics data against a vast in silico MS/MS spectral library of Generative AI synthesized DNA adductome (MutAIverse spectral library) and experimentally validated adducts, facilitating the identification of DNA adducts that are formed due to genotoxin/carcinogen exposure along with the predictive capabilities of Adduct Linker module to determine potential source genotoxins responsible for the DNA adduct formation, establishing a direct link between DNA adducts and the genotoxins or carcinogens that trigger their formation. MutAIverse seeks to overcome the current limitations and pave the way for a more precise, efficient, and personalized assessment of the exposome.
+
 
 
 The single strong dependency for this resource is **[RDKit](https://www.rdkit.org/)**, which can be installed in a local [Conda](https://conda.io/) environment.
@@ -14,11 +15,15 @@ The single strong dependency for this resource is **[RDKit](https://www.rdkit.or
 7. tqdm
 
 
-## Adduct Mapper module
-MutAIverse provides two approaches for mapping query MS spectra against *in silico* MS MS spectral library of Experimentally validated adducts or Synthetic DNA adducts of MutAIverse.
+## Mapper module
+Mapper module provides two approaches for mapping query MS spectra against *in silico* MS MS spectral library of Experimentally validated adducts or Synthetic DNA adducts of MutAIverse.
+ <br>
+<div align="center">
+<img src="images/mapper.png"></div>
+<br>
 
 #### MutAIverse Library setup
-This is a one-time task that must be completed to use the Mapper module after installing the package for the first time
+This is a one-time task that must be completed to use the Mapper module after installing the package for the first time.
 ```Python
 from MutAIverse import Mapper
 Mapper.load_library()
@@ -37,12 +42,12 @@ Mapper.map('bonafide_adducts',sample_file_path='/path-to-mzML-file',MS_level=1,p
 Additional arguments 
 
     Parameters:
-    - library (str): bonafide_adducts/MutAIversee
+    - library (str): bonafide_adducts/MutAIverse.
     - sample_file_path (str): Path to the mzML file containing mass spectrometry data.
-    - ms level (int): 1 (MS spectrum) or 2 (MS/MS spectrum)
-    - plot (bool; default True): for visualizations
+    - ms level (int): 1 (MS spectrum) or 2 (MS/MS spectrum).
+    - plot (bool; default True): for visualizations.
     return
-    - Result CSV file with suffix _MutAIversee_results.csv or _bonafide_adducts_results.csv
+    - Result CSV file with suffix _MutAIversee_results.csv or _bonafide_adducts_results.csv.
 
 
 
@@ -71,12 +76,16 @@ Additional arguments
     - visualizations(density plot and histograms)
 
 
-## Adduct Linker module
+## AdductLinker module
+ <br>
+<div align="center">
+<img src="images/linker.png"></div>
+<br>
 MutAIverse is also capable of re-tracing a DNA adduct to its possible source Genotoxin.
 
 
 ### Fragment-based linking 
-biotransformation backtracking based on abnormalities spliced from the base nucleotides
+Biotransformation backtracking based on abnormalities spliced from the base nucleotides.
 
 ```python
 from MutAIverse import Linker
@@ -91,8 +100,8 @@ Additional arguments
     - Adduct (str): Path to the mzML file containing mass spectrometry data.
     - knn (int; default 20): Number of nearest neighbors to narrow down the search space. 
     - tophit (int; default 5): Minimum number of Genotoxins to be linked.
-    - plot (bool; default False): Traced SMILES 2D structures in rows
-    - cutoff (int; default 80): Link Probability(%) cutoff
+    - plot (bool; default False): Traced SMILES 2D structures in rows.
+    - cutoff (int; default 80): Link Probability(%) cutoff.
     
     Returns:
     - pandas.DataFrame: DataFrame containing search results with columns ['Query', 'Fragment', 'Metabolites', 'N-Transformation', 'Genotoxin', 'Probability'].
@@ -114,4 +123,3 @@ Additional arguments
     Returns:
     - visualizations(Traced SMILES 2D structures in rows)
   
-
