@@ -25,7 +25,7 @@ MutAIverse has 2 distinct modules:<br/>
 2. AdductLinker
 
 ## Mapper module
-Mapper module provides two approaches for mapping query MS spectra against *in silico* MS MS spectral library of Experimentally validated adducts or Synthetic DNA adducts of MutAIverse.
+Mapper module provides two approaches for mapping query MS spectra against *in silico* MS/MS spectral library of Experimentally validated adducts or Synthetic DNA adducts of MutAIverse.
  <br>
 <div align="center">
 <img src="images/mapper.png"></div>
