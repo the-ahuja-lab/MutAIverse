@@ -52,7 +52,7 @@ Mapper.map('bonafide_adducts',sample_file_path='/path-to-mzML-file',MS_level=1,p
 Additional arguments 
 
     Parameters:
-    - library (str): bonafide_adducts/MutAIverse.
+    - library (str): bonafide_adducts/suspected_adducts/MutAIverse.
     - sample_file_path (str): Path to the mzML file containing mass spectrometry data.
     - ms level (int): 1 (MS spectrum) or 2 (MS/MS spectrum).
     - plot (bool; default True): for visualizations.
