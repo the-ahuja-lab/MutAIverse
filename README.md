@@ -7,7 +7,7 @@ The single strong dependency for this resource is **[RDKit](https://www.rdkit.or
 
 **Other dependencies**
 1. matchms (v0.13.0)
-2. Hnswlib (v0.8.0)
+2. hnswlib (v0.8.0)
 3. gensim (v4.3.1)
 4. pandas (v1.5.3)
 5. numpy (v1.23)
