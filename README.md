@@ -14,6 +14,15 @@ The single strong dependency for this resource is **[RDKit](https://www.rdkit.or
 6. matplotlib
 7. tqdm
 
+## How to use MutAIverse?
+
+### Installation using pip 
+```
+$ pip install -i https://test.pypi.org/simple/MutAIverse
+```
+MutAIverse has 2 distinct modules:<br/>
+1. Mapper
+2. AdductLinker
 
 ## Mapper module
 Mapper module provides two approaches for mapping query MS spectra against *in silico* MS MS spectral library of Experimentally validated adducts or Synthetic DNA adducts of MutAIverse.
