@@ -6,13 +6,14 @@ The MutAIverse package streamlines adductomics research by enabling the screenin
 The single strong dependency for this resource is **[RDKit](https://www.rdkit.org/)**, which can be installed in a local [Conda](https://conda.io/) environment.
 
 **Other dependencies**
-1. Match ms
-2. Hnswlib
-3. Gensim
-4. pandas
-5. numpy
-6. matplotlib
-7. tqdm
+1. matchms(v0.13.0)
+2. Hnswlib(v0.8.0)
+3. Gensim(v4.3.1)
+4. pandas(v1.5.3)
+5. numpy(v1.23)
+6. matplotlib(v3.7.1)
+7. seaborn(v0.12.2)
+8. tqdm(v4.65.0)
 
 ## How to use MutAIverse?
 
