@@ -19,7 +19,7 @@ The single strong dependency for this resource is **[RDKit](https://www.rdkit.or
 
 ### Installation using pip 
 ```
-$ pip install -i https://test.pypi.org/simple/MutAIverse
+$ pip install -i https://test.pypi.org/simple/ MutAIverse
 ```
 MutAIverse has 2 distinct modules:<br/>
 1. Mapper
