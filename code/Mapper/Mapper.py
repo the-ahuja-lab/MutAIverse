@@ -81,7 +81,6 @@ def fast_high(row, ref_id_column='E0_ref_id', smile_column='E0_ref_smile'):
     da_mol = get_mol(da)
     matches = find_matches_one(adduct_mol, da_mol)
     return adduct_mol
-# imports query spectra file of mzml format
 
 #normalize spectra 
 def spectra_preprocess(s):
@@ -144,8 +143,8 @@ def map(library,mzml_file_path,MS_level,plot):
     # Get a list of all files in the specified folder
     mzml_file= os.path.basename(mzml_file_path)
     if library=='mutaiverse':
-        lib_path='comb_it.msp'
-        output_file = os.path.join(f'{mzml_file}_mutAIverse_results.csv')
+        lib_path='mutaiverse.msp'
+        output_file = os.path.join(f'{mzml_file}_MutAIverse_results.csv')
     elif library=='bonafide_adducts':
         lib_path='exp_279.msp'
         output_file = os.path.join(f'{mzml_file}_bonafide_adducts_results.csv')
