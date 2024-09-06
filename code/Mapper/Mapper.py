@@ -122,7 +122,7 @@ def match_spectra(query_spectra, reference_spectra):
     
 
 
-
+#filter MS spectra based on metadata
 def filter_spectra(input_list, metadata_key, metadata_value):
     new_list = []
     for element in input_list:
@@ -130,15 +130,7 @@ def filter_spectra(input_list, metadata_key, metadata_value):
             new_list.append(element)
     return new_list
     
-   
-#generated smiles bin 
-
-
-
-# Specify the path to the folder containing mzML files
-
-
-
+# MS/MS library selection
 def map(library,mzml_file_path,MS_level,plot):
     # Get a list of all files in the specified folder
     mzml_file= os.path.basename(mzml_file_path)
