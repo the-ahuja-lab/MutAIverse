@@ -725,7 +725,7 @@ def unzip_file(zip_file_path, extract_to_path):
 
 def load_library():
         src_path=pkg_resources.get_distribution('MutAIverse').location
-        os.system('wget -q https://zenodo.org/records/11094453/files/lib.zip')
+        os.system('wget -q https://zenodo.org/records/13867395/files/lib.zip')
         unzip_file('lib.zip',src_path+'/MutAIverse/')
         os.remove('lib.zip')
         print('Library setup success!')
