@@ -1,0 +1,7 @@
+matchms==0.13.0
+hnswlib==0.8.0
+gensim==4.3.3
+matplotlib==3.7.1
+seaborn==0.12.2
+tqdm==4.65.0
+rdkit==2023.3.1
