@@ -448,7 +448,7 @@ class SpectrumDocument(Document):
         """Return peaks of original spectrum."""
         return self._obj.peaks
 
-
+#adapted from FASTEI : https://github.com/Qiong-Yang/FastEI
 
 def calc_vector(model: BaseTopicModel, document: Document,
                 intensity_weighting_power: Union[float, int] = 0,
