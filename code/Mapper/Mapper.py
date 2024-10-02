@@ -1,3 +1,4 @@
+
 import io
 from importlib import resources
 import pkg_resources
@@ -26,7 +27,6 @@ from PIL import Image
 from io import BytesIO
 from IPython.display import display
 import numpy as np
-
 from typing import Optional
 from collections import defaultdict
 import re
@@ -43,44 +43,6 @@ import hnswlib
 import sqlite3
 from itertools import chain
 
-def fast_high(row, ref_id_column='E0_ref_id', smile_column='E0_ref_smile'):
-    def get_mol(smiles):
-        mol = Chem.MolFromSmiles(smiles)
-        if mol is None:
-            return None
-        Chem.Kekulize(mol)
-        return mol
-
-    def find_matches_one(mol, submol):
-        match_dict = {}
-        mols = [mol, submol]
-        res = rdFMCS.FindMCS(mols)
-        mcsp = Chem.MolFromSmarts(res.smartsString)
-        matches = mol.GetSubstructMatches(mcsp)
-        return matches
-
-    adduct_mol = get_mol(row[smile_column])
-
-    # Define base da strings
-    da_base_A = 'OCC1OC(CC1O)n1cnc2c1nc(N)nc2N'
-    da_base_T = 'C1C(C(OC1N2C=NC3=C(N=C(N=C32)N)N)CO)O'
-    da_base_G = 'NC1=NC2=C(N=CN2[C@H]2C[C@H](O)[C@@H](CO)O2)C(=O)N1'
-    da_base_C = 'C1C(C(OC1N2C=CC(=NC2=O)N)CO)O'
-
-    # Check conditions based on ref_id_column prefix
-    if row[ref_id_column].startswith("gen_A"):
-        da = da_base_A
-    elif row[ref_id_column].startswith("gen_T"):
-        da = da_base_T
-    elif row[ref_id_column].startswith("gen_G"):
-        da = da_base_G
-    elif row[ref_id_column].startswith("gen_C"):
-        da = da_base_C
-    else :
-        da =adduct_mol
-    da_mol = get_mol(da)
-    matches = find_matches_one(adduct_mol, da_mol)
-    return adduct_mol
 
 #normalize spectra 
 def spectra_preprocess(s):
@@ -122,7 +84,7 @@ def match_spectra(query_spectra, reference_spectra):
     
 
 
-#filter MS spectra based on metadata
+
 def filter_spectra(input_list, metadata_key, metadata_value):
     new_list = []
     for element in input_list:
@@ -130,19 +92,27 @@ def filter_spectra(input_list, metadata_key, metadata_value):
             new_list.append(element)
     return new_list
     
-# MS/MS library selection
+   
+#generated smiles bin 
+
+
+
+# Specify the path to the folder containing mzML files
+
+
+
 def map(library,mzml_file_path,MS_level,plot):
     # Get a list of all files in the specified folder
     mzml_file= os.path.basename(mzml_file_path)
     if library=='mutaiverse':
         lib_path='mutaiverse.msp'
-        output_file = os.path.join(f'{mzml_file}_MutAIverse_results.csv')
+        output_file = os.path.join(f'{mzml_file}_mutAIverse_results.csv')
     elif library=='bonafide_adducts':
-        lib_path='exp_279.msp'
+        lib_path='bonafide_adducts.msp'
         output_file = os.path.join(f'{mzml_file}_bonafide_adducts_results.csv')
     elif library=='suspected_adducts':
-        lib_path='suspected_adducts_303.msp'
-        output_file = os.path.join(f'{mzml_file}_suspected_adducts_results.csv')
+        lib_path='suspected_adducts.msp'
+        output_file = os.path.join(f'{mzml_file}_bonafide_adducts_results.csv')    
     else:
         print('Choose valid MS/MS library')
 
@@ -168,23 +138,23 @@ def map(library,mzml_file_path,MS_level,plot):
     
     df_e0 = df_energy0
     df_e0.rename(columns={'Reference Scan ID': 'E0_ref_id'}, inplace=True)
-    df_e0.rename(columns={'ref_Smiles/Inchi': 'E0_ref_smile'}, inplace=True)
-    df_e0.rename(columns={'Score':'Score_E0'}, inplace=True)
+    df_e0.rename(columns={'ref_Smiles/Inchi': 'E0_ref_SMILES'}, inplace=True)
+    df_e0.rename(columns={'Score':'Cosine_Score_E0'}, inplace=True)
 
 
     df_e1=df_energy1
     df_e1.rename(columns={'Reference Scan ID': 'E1_ref_id'}, inplace=True)
-    df_e1.rename(columns={'ref_Smiles/Inchi': 'E1_ref_smile'}, inplace=True)
-    df_e1.rename(columns={'Score':'Score_E1'}, inplace=True)
+    df_e1.rename(columns={'ref_Smiles/Inchi': 'E1_ref_SMILES'}, inplace=True)
+    df_e1.rename(columns={'Score':'Cosine_Score_E1'}, inplace=True)
 
 
 
     df_e2=df_energy2
     df_e2.rename(columns={'Reference Scan ID': 'E2_ref_id'}, inplace=True)
-    df_e2.rename(columns={'ref_Smiles/Inchi': 'E2_ref_smile'}, inplace=True)
-    df_e2.rename(columns={'Score':'Score_E2'}, inplace=True)
+    df_e2.rename(columns={'ref_Smiles/Inchi': 'E2_ref_SMILES'}, inplace=True)
+    df_e2.rename(columns={'Score':'Cosine_Score_E2'}, inplace=True)
 
-    df_comb=pd.concat([df_e0['Query'],df_e0['q_id'],df_e0['Score_E0'], df_e0['E0_ref_smile'],df_e0['E0_ref_id'],df_e0['Number of Matching Peaks'],df_e1['Score_E1'], df_e1['E1_ref_smile'],df_e1['E1_ref_id'],df_e1['Number of Matching Peaks'],df_e2['Score_E2'], df_e2['E2_ref_smile'],df_e2['E2_ref_id'],df_e2['Number of Matching Peaks']],axis=1)
+    df_comb=pd.concat([df_e0['Query'],df_e0['q_id'],df_e0['Cosine_Score_E0'], df_e0['E0_ref_SMILES'],df_e0['E0_ref_id'],df_e0['Number of Matching Peaks'],df_e1['Cosine_Score_E1'], df_e1['E1_ref_SMILES'],df_e1['E1_ref_id'],df_e1['Number of Matching Peaks'],df_e2['Cosine_Score_E2'], df_e2['E2_ref_SMILES'],df_e2['E2_ref_id'],df_e2['Number of Matching Peaks']],axis=1)
     
     # Save results for each mzML file
     df_comb.to_csv(output_file)
@@ -192,11 +162,11 @@ def map(library,mzml_file_path,MS_level,plot):
     if plot==True :
         print('****saving plots****')
         df=pd.read_csv(output_file)
-        df['Score_E0'] = df['Score_E0'].astype(float)
-        df['Score_E1'] = df['Score_E1'].astype(float)
-        df['Score_E2'] = df['Score_E2'].astype(float)
+        df['Cosine_Score_E0'] = df['Cosine_Score_E0'].astype(float)
+        df['Cosine_Score_E1'] = df['Cosine_Score_E1'].astype(float)
+        df['Cosine_Score_E2'] = df['Cosine_Score_E2'].astype(float)
     # Plot histograms for each mzML file
-        scores_to_plot = ['Score_E0', 'Score_E1', 'Score_E2']
+        scores_to_plot = ['Cosine_Score_E0', 'Cosine_Score_E1', 'Cosine_Score_E2']
         num_bins = 20
         colors = ['skyblue', 'lightgreen', 'coral']
 
@@ -210,13 +180,9 @@ def map(library,mzml_file_path,MS_level,plot):
             plt.xlim(0,1)
             plt.savefig(os.path.join(f'{mzml_file}_{score_column}_histogram.png'))
             plt.close()
-    
         
+    
     else:
-        PandasTools.RenderImagesInAllDataFrames(images=True)
-        df_comb['STRUCTURE_EO']=df_comb.apply(fast_high, axis=1,ref_id_column='E0_ref_id', smile_column='E0_ref_smile')
-        df_comb['STRUCTURE_E1']= df_comb.apply(fast_high, axis=1,ref_id_column='E1_ref_id', smile_column='E1_ref_smile')
-        df_comb['STRUCTURE_E2']= df_comb.apply(fast_high, axis=1,ref_id_column='E2_ref_id', smile_column='E2_ref_smile')
         return df_comb
 
 
@@ -708,7 +674,7 @@ def fast_map(mzml_file_path,level=2, k=1, ef_query=300, Energy=0):
     sns.histplot(result_df['Similarity'], kde=True, stat='density')
     plt.xlabel('Cosine Similarity')
     plt.ylabel('Density')
-    plt.title('Density Plot of Similarities')
+    plt.title('Density Plot of Cosine Similarity')
     plt.show()
 
     # Save the plot if save path is provided
